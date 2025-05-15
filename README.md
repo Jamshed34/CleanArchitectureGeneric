@@ -75,7 +75,7 @@ tests/
 ## Running the Application
 1. Start all services:
 
-bash
+```bash
 dotnet run --project src/AppHost
 
 2. Access endpoints:
@@ -84,3 +84,29 @@ dotnet run --project src/AppHost
 API: https://localhost:7042
 Swagger UI: https://localhost:7042/swagger
 
+## Authentication Flow
+1. Get Access Token
+
+```bash
+curl -X POST "https://localhost:7042/connect/token" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "client_id=ro.client&client_secret=secret&grant_type=password&username=admin@example.com&password=Admin@123&scope=api1"
+```
+
+2. Use Token in Requests
+
+```bash
+curl -H "Authorization: Bearer <token>" https://localhost:7042/api/users
+```
+
+### Default Credentials
+Admin: admin@example.com / Admin@123
+User: user@example.com / User@123
+
+### Database Schema
+Key Tables:
+
+- AspNetUsers - User accounts
+- AspNetRoles - Role definitions
+- Clients - OAuth client configurations
+- PersistedGrants - Active tokens
