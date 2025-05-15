@@ -69,9 +69,9 @@ tests/
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/clean-architecture-identityserver.git
-   cd clean-architecture-identityserver
+```bash
+git clone https://github.com/your-repo/clean-architecture-identityserver.git
+cd clean-architecture-identityserver
 ```
 
 ## Running the Application
@@ -79,6 +79,7 @@ tests/
 
 ```bash
 dotnet run --project src/AppHost
+```
 
 2. Access endpoints:
 
