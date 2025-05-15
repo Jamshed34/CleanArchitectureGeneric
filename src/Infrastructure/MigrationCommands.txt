@@ -1,0 +1,9 @@
+﻿ For ConfigurationDbContext
+dotnet ef migrations add InitialIdentityServerConfiguration -o Identity/Migrations/Configuration --context ConfigurationDbContext --startup-project ../Presentation/WebApi
+
+# For PersistedGrantDbContext
+dotnet ef migrations add InitialIdentityServerGrants -o Identity/Migrations/PersistedGrant --context PersistedGrantDbContext --startup-project ../Presentation/WebApi
+
+# Then update the database
+dotnet ef database update --context ConfigurationDbContext --startup-project ../Presentation/WebApi
+dotnet ef database update --context PersistedGrantDbContext --startup-project ../Presentation/WebApi

@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CleanArchitectureTemplate
+/src/Application/bin/Debug/net9.0
+/src/Application/obj
+/src/Domain/bin/Debug/net9.0
+/src/Domain/obj
+/src/Infrastructure/bin/Debug/net9.0
+/src/Infrastructure/obj
+/src/Infrastructure/src/obj
+/src/Infrastructure/Infrastructure.csproj.Backup.tmp
+/src/Presentation/WebApi/bin/Debug/net9.0
+/src/Presentation/WebApi/obj
+/tests/IntegrationTests/bin/Debug/net9.0
+/tests/IntegrationTests/obj
+/tests/UnitTests/bin/Debug/net9.0
+/tests/UnitTests/obj
