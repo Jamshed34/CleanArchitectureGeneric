@@ -28,6 +28,7 @@ A production-ready template implementing Clean Architecture with:
 ---
 
 ## Project Structure
+<pre lang="text"><code>
 src/
 ├── AppHost/ # .NET Aspire orchestration
 │ ├── Program.cs # Service definitions
@@ -53,7 +54,7 @@ src/
 tests/
 ├── UnitTests/ # Unit tests
 └── IntegrationTests/ # Integration tests
-
+</code></pre>
 
 ---
 
@@ -71,6 +72,7 @@ tests/
    ```bash
    git clone https://github.com/your-repo/clean-architecture-identityserver.git
    cd clean-architecture-identityserver
+```
 
 ## Running the Application
 1. Start all services:
