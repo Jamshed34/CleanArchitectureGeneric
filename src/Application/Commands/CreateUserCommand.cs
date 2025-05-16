@@ -2,42 +2,50 @@
 using Domain.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Commands
+namespace Application.Commands;
+
+public record CreateUserCommand(
+    string Email,
+    string Password,
+    string FirstName,
+    string LastName
+) : IRequest<Guid>;
+
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
 {
-    public record CreateUserCommand(string Email, string Pasword, string FirstName, string LastName) : IRequest<Guid>;
+    private readonly IUserRepository _userRepository;
+    private readonly IPasswordHasher<User> _passwordHasher;
 
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
+    public CreateUserCommandHandler(
+        IUserRepository userRepository,
+        IPasswordHasher<User> passwordHasher)
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IPasswordHasher<User> _passwordHasher;
-        public CreateUserCommandHandler(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
+        _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+        _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
+    }
+
+    public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    {
+        if (!await _userRepository.IsEmailUniqueAsync(request.Email, cancellationToken))
         {
-            _userRepository = userRepository;
-            _passwordHasher = passwordHasher;
+            throw new InvalidOperationException($"A user with email '{request.Email}' already exists.");
         }
 
-        public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        var user = new User
         {
-            var user = new User
-            {
-                Email = request.Email,
-                UserName = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-            };
+            Id = Guid.NewGuid(),
+            Email = request.Email,
+            UserName = request.Email,
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+        };
 
-            user.PasswordHash = _passwordHasher.HashPassword(user, request.Pasword);
+        user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
 
-            await _userRepository.AddAsync(user, cancellationToken);
-            await _userRepository.UnitOfWork.CommitAsync(cancellationToken);
+        await _userRepository.AddAsync(user, cancellationToken);
+        await _userRepository.UnitOfWork.CommitAsync(cancellationToken);
 
-            return user.Id;
-        }
+        return user.Id;
     }
 }
