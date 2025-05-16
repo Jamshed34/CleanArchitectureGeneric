@@ -17,3 +17,4 @@
 /tests/IntegrationTests/obj
 /tests/UnitTests/bin/Debug/net9.0
 /tests/UnitTests/obj
+/src/Presentation/WebApi/Logs
