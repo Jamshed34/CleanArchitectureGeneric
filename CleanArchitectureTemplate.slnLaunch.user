@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "src\\Presentation\\WebApi\\WebApi.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\ApiGateway\\ApiGateway.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
